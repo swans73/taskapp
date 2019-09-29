@@ -14,6 +14,8 @@ class Task: Object {
     //タイトル
     @objc dynamic var title = ""
     //内容
+    @objc dynamic var contents = ""
+    //日時
     @objc dynamic var date = Date()
     /** idをプライマリーキーとして設定 **/
     override static func primaryKey() -> String? {
