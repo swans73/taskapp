@@ -63,6 +63,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.reloadData()
         }
     }
+    //検索をキャンセルした時の処理
+    func searchBarCanselButtonClicked(searchBar: UISearchBar) {
+        searchFlag = false
+        category = try! Realm().objects(Task.self).filter("title IN {%@, %@, %@}", "1", "2", "3")
+    }
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
