@@ -10,15 +10,16 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
-    
     //Realmインスタンスを取得する
     let realm = try! Realm()
     //DB内のタスクが格納されるリスト。
     //日付近い順\順でソート：降順
     //以降内容をアップデートするとリスト内容は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+    var category = try! Realm().objects(Task.self).filter("title IN {%@, %@, %@}", "1", "2", "3")
+    var predicate = NSPredicate(format: "search = %@ AND title BEGINSWITH %@")
     
     // segueで画面遷移するときに呼ばれる
     override func prepare(for segue:UIStoryboardSegue, sender: Any?) {
@@ -48,23 +49,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
     }
+    @IBOutlet weak var search: UISearchBar!
+    var searchFlag: Bool = false
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    }
+    //検索バーを押した時の処理
+    func searchBarTextDidEditing(searchBar: UISearchBar) {
+        searchFlag = true
+        if let search = searchBar.text {
+            category = try! Realm().objects(Task.self).filter("category = '\(search)'")
+        } else {
+            category = try! Realm().objects(Task.self).filter(predicate)
+            tableView.reloadData()
+        }
+    }
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskArray.count
+        if searchFlag == true {
+            return category.count
+        } else {
+            return taskArray.count
+        }
+        
     }
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        // Cellに値を設定する. ---ここから---
+        // Cellに値を設定する
+        if searchFlag == true {
+            let task = category[indexPath.row]
+            cell.textLabel?.text = "\(task.title) \(task.category)"
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let dateString:String = formatter.string(from: task.date)
+            cell.detailTextLabel?.text = dateString
+        } else {
         let task = taskArray[indexPath.row]
         cell.textLabel?.text = task.title
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let dateString:String = formatter.string(from: task.date)
         cell.detailTextLabel?.text = dateString
-        // --- ここまで追加 ---
+        }
         return cell
     }
     //MARK: UITableViewDelegateプロトコルのメソッド
@@ -78,7 +106,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //Deleteボタンが押されたときに呼ばれるメソッド
     func tableView(_ tableView:UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //---ここから---
+       
         if editingStyle == .delete {
             // 削除するタスクを取得する
             let task = self.taskArray[indexPath.row]
@@ -98,7 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print("------------/")
                 }
             }
-        } //---ここまで追加---
+        }
     }
 }
 
