@@ -18,8 +18,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //日付近い順\順でソート：降順
     //以降内容をアップデートするとリスト内容は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-    var category = try! Realm().objects(Task.self).filter("title IN {%@, %@, %@}", "1", "2", "3")
-    var predicate = NSPredicate(format: "search = %@ AND title BEGINSWITH %@")
+    var taskCategory = try! Realm().objects(Task.self).filter("category = %@ AND title BEGINSWITH %@", "a", "a")
+    let jyutugo = NSPredicate(format: "category = %@ AND title BEGINSWITH %@", "a", "a")
     
     // segueで画面遷移するときに呼ばれる
     override func prepare(for segue:UIStoryboardSegue, sender: Any?) {
@@ -48,31 +48,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
     }
-    @IBOutlet weak var search: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     var searchFlag: Bool = false
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     //検索バーを押した時の処理
     func searchBarTextDidEditing(searchBar: UISearchBar) {
         searchFlag = true
-        if let search = searchBar.text {
-            category = try! Realm().objects(Task.self).filter("category = '\(search)'")
+        if let kensaku = searchBar.text {
+            taskCategory = try! Realm().objects(Task.self).filter("\(searchBar)")
+            tableView.reloadData()
         } else {
-            category = try! Realm().objects(Task.self).filter(predicate)
+            taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
             tableView.reloadData()
         }
     }
     //検索をキャンセルした時の処理
     func searchBarCanselButtonClicked(searchBar: UISearchBar) {
         searchFlag = false
-        category = try! Realm().objects(Task.self).filter("title IN {%@, %@, %@}", "1", "2", "3")
+        taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
+        tableView.reloadData()
     }
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchFlag == true {
-            return category.count
+            return taskCategory.count
         } else {
             return taskArray.count
         }
@@ -84,7 +88,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // Cellに値を設定する
         if searchFlag == true {
-            let task = category[indexPath.row]
+            let task = taskCategory[indexPath.row]
             cell.textLabel?.text = "\(task.title) \(task.category)"
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd HH:mm"

@@ -59,7 +59,7 @@ class InputViewController: UIViewController {
             content.body = task.contents
         }
         if task.category == "" {
-            content.subtitle = "(タイトルなし)"
+            content.subtitle = "(カテゴリなし)"
         } else {
             content.subtitle = task.category
         }

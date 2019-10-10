@@ -78,7 +78,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="search" destination="Wuh-lo-efE" id="Zxx-HK-jND"/>
+                        <outlet property="searchBar" destination="Wuh-lo-efE" id="kTy-MB-At7"/>
                         <outlet property="tableView" destination="8af-lG-iv5" id="IC7-BY-Feh"/>
                         <segue destination="DGV-Vd-p4X" kind="show" identifier="cellSegue" id="w5H-WJ-CD9"/>
                     </connections>
