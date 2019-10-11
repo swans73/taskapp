@@ -18,8 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //日付近い順\順でソート：降順
     //以降内容をアップデートするとリスト内容は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-    var taskCategory = try! Realm().objects(Task.self).filter("category = %@ AND title BEGINSWITH %@", "a", "a")
-    let jyutugo = NSPredicate(format: "category = %@ AND title BEGINSWITH %@", "a", "a")
+    var taskCategory = try! Realm().objects(Task.self).filter("category = %@", "searchBar.text")
     
     // segueで画面遷移するときに呼ばれる
     override func prepare(for segue:UIStoryboardSegue, sender: Any?) {
@@ -52,25 +51,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @IBOutlet weak var searchBar: UISearchBar!
     var searchFlag: Bool = false
+    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        let jyutugo = NSPredicate(format: "category = %@", "searchBar.text")
         searchBar.resignFirstResponder()
-    }
-    //検索バーを押した時の処理
-    func searchBarTextDidEditing(searchBar: UISearchBar) {
         searchFlag = true
         if let kensaku = searchBar.text {
-            taskCategory = try! Realm().objects(Task.self).filter("\(searchBar)")
-            tableView.reloadData()
-        } else {
             taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
             tableView.reloadData()
+        } else {
+            tableView.reloadData()
         }
+        
     }
+//    //検索バーを押した時の処理
+//    func searchBarTextDidEditing(searchBar: UISearchBar) {
+//
+//    }
     //検索をキャンセルした時の処理
     func searchBarCanselButtonClicked(searchBar: UISearchBar) {
         searchFlag = false
-        taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
-        tableView.reloadData()
     }
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
