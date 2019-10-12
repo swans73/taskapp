@@ -52,11 +52,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var searchBar: UISearchBar!
     var searchFlag: Bool = false
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        let jyutugo = NSPredicate(format: "category = %@", "searchBar.text")
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchFlag = true
         if let kensaku = searchBar.text {
+            let jyutugo = NSPredicate(format: "category = %@", kensaku)
             taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
             tableView.reloadData()
         } else {
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //
 //    }
     //検索をキャンセルした時の処理
-    func searchBarCanselButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchFlag = false
     }
     // MARK: UITableViewDataSourceプロトコルのメソッド
@@ -94,9 +94,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             formatter.dateFormat = "yyyy-MM-dd HH:mm"
             let dateString:String = formatter.string(from: task.date)
             cell.detailTextLabel?.text = dateString
+            return cell
         } else {
         let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+        cell.textLabel?.text = "\(task.title) \(task.category)"
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let dateString:String = formatter.string(from: task.date)
