@@ -29,8 +29,9 @@ class CategoryViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
             self.task2.category = self.categoryTextField.text!
+            self.realm.add(self.task2, update: true)
         }
-        setNotification(task2: Category)
+        setNotification(task2: task2)
         super.viewWillDisappear(animated)
     }
     //タスクのローカル通知を登録する

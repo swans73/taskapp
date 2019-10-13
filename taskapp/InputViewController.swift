@@ -15,7 +15,6 @@ class InputViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var categoryTextField: UITextField!
     
     let realm = try! Realm()
     var task: Task!
@@ -28,7 +27,6 @@ class InputViewController: UIViewController {
         titleTextField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date
-        categoryTextField.text = task.category
         // Do any additional setup after loading the view.
     }
     //遷移する際に、画面が非表示になるとき呼ばれるメソッド
@@ -38,7 +36,6 @@ class InputViewController: UIViewController {
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
             self.realm.add(self.task, update: true)
-            self.task.category = self.categoryTextField.text!
         }
         setNotification(task: task)
         super.viewWillDisappear(animated)
@@ -57,12 +54,6 @@ class InputViewController: UIViewController {
         } else {
             content.body = task.contents
         }
-        if task.category == "" {
-            content.summaryArgument = "(カテゴリなし)"
-        } else {
-            content.summaryArgument = task.category
-        }
-        
         content.sound = UNNotificationSound.default
         //ローカル通知が発動するtrigger（日付マッチ）を作成
         let calendar = Calendar.current
