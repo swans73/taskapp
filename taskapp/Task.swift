@@ -17,6 +17,7 @@ class Task: Object {
     @objc dynamic var contents = ""
     //日時
     @objc dynamic var date = Date()
+    //
     //category
     @objc dynamic var category = ""
     /** idをプライマリーキーとして設定 **/

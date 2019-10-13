@@ -29,7 +29,6 @@ class InputViewController: UIViewController {
         contentsTextView.text = task.contents
         datePicker.date = task.date
         categoryTextField.text = task.category
-
         // Do any additional setup after loading the view.
     }
     
@@ -59,10 +58,11 @@ class InputViewController: UIViewController {
             content.body = task.contents
         }
         if task.category == "" {
-            content.subtitle = "(カテゴリなし)"
+            content.summaryArgument = "(カテゴリなし)"
         } else {
-            content.subtitle = task.category
+            content.summaryArgument = task.category
         }
+        
         content.sound = UNNotificationSound.default
         //ローカル通知が発動するtrigger（日付マッチ）を作成
         let calendar = Calendar.current

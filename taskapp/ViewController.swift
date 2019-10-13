@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //日付近い順\順でソート：降順
     //以降内容をアップデートするとリスト内容は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-    var taskCategory = try! Realm().objects(Task.self).filter("category = %@", "searchBar.text")
     
     // segueで画面遷移するときに呼ばれる
     override func prepare(for segue:UIStoryboardSegue, sender: Any?) {
@@ -50,59 +49,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBar.delegate = self
     }
     @IBOutlet weak var searchBar: UISearchBar!
-    var searchFlag: Bool = false
-    
+    //検索バーを押した時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        searchFlag = true
+        searchBar.showsCancelButton = true
         if let kensaku = searchBar.text {
             let jyutugo = NSPredicate(format: "category = %@", kensaku)
-            taskCategory = try! Realm().objects(Task.self).filter(jyutugo)
+            taskArray = try! Realm().objects(Task.self).filter(jyutugo)
             tableView.reloadData()
         } else {
             tableView.reloadData()
         }
         
     }
-//    //検索バーを押した時の処理
-//    func searchBarTextDidEditing(searchBar: UISearchBar) {
-//
-//    }
     //検索をキャンセルした時の処理
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchFlag = false
+        taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+        tableView.reloadData()
     }
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchFlag == true {
-            return taskCategory.count
-        } else {
             return taskArray.count
         }
-        
-    }
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能なcellを得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // Cellに値を設定する
-        if searchFlag == true {
-            let task = taskCategory[indexPath.row]
-            cell.textLabel?.text = "\(task.title) \(task.category)"
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let dateString:String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
-            return cell
-        } else {
         let task = taskArray[indexPath.row]
-        cell.textLabel?.text = "\(task.title) \(task.category)"
+        cell.textLabel?.text = "\(task.title)"
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let dateString:String = formatter.string(from: task.date)
         cell.detailTextLabel?.text = dateString
-        }
         return cell
     }
     //MARK: UITableViewDelegateプロトコルのメソッド
