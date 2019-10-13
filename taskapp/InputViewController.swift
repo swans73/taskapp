@@ -31,7 +31,7 @@ class InputViewController: UIViewController {
         categoryTextField.text = task.category
         // Do any additional setup after loading the view.
     }
-    
+    //遷移する際に、画面が非表示になるとき呼ばれるメソッド
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
             self.task.title = self.titleTextField.text!

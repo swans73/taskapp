@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08B6392523530CBA004B43C0 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B6392423530CBA004B43C0 /* Category.swift */; };
+		08B6392723530D35004B43C0 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B6392623530D35004B43C0 /* CategoryViewController.swift */; };
 		08CF6C49233C13EA00788E4B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CF6C48233C13EA00788E4B /* Task.swift */; };
 		08FEAA482339051700DDAB8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEAA472339051700DDAB8C /* AppDelegate.swift */; };
 		08FEAA4A2339051700DDAB8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEAA492339051700DDAB8C /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08B6392423530CBA004B43C0 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		08B6392623530D35004B43C0 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		08CF6C48233C13EA00788E4B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		08FEAA442339051700DDAB8C /* taskapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taskapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FEAA472339051700DDAB8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 				08FEAA502339051800DDAB8C /* LaunchScreen.storyboard */,
 				08FEAA532339051800DDAB8C /* Info.plist */,
 				08FEAA59233B778900DDAB8C /* InputViewController.swift */,
+				08B6392423530CBA004B43C0 /* Category.swift */,
+				08B6392623530D35004B43C0 /* CategoryViewController.swift */,
 			);
 			path = taskapp;
 			sourceTree = "<group>";
@@ -210,8 +216,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				08CF6C49233C13EA00788E4B /* Task.swift in Sources */,
+				08B6392523530CBA004B43C0 /* Category.swift in Sources */,
 				08FEAA5A233B778900DDAB8C /* InputViewController.swift in Sources */,
 				08FEAA4A2339051700DDAB8C /* ViewController.swift in Sources */,
+				08B6392723530D35004B43C0 /* CategoryViewController.swift in Sources */,
 				08FEAA482339051700DDAB8C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
