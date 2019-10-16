@@ -48,22 +48,21 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Wuh-lo-efE">
-                                <rect key="frame" x="0.0" y="578" width="375" height="44"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5K-Uv-Zfb">
+                                <rect key="frame" x="0.0" y="573" width="375" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="yXg-Rn-lZE"/>
+                                    <constraint firstAttribute="height" constant="50" id="Qje-L3-lmG"/>
                                 </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Wuh-lo-efE" firstAttribute="top" secondItem="8af-lG-iv5" secondAttribute="bottom" id="Eoo-EV-hM5"/>
+                            <constraint firstItem="I5K-Uv-Zfb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="867-mq-Ffi"/>
+                            <constraint firstItem="I5K-Uv-Zfb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BoL-SC-8yI"/>
                             <constraint firstItem="8af-lG-iv5" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-45" id="NtP-dh-IuH"/>
-                            <constraint firstItem="Wuh-lo-efE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PNT-ot-3pj"/>
                             <constraint firstItem="8af-lG-iv5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Szn-Yo-fO5"/>
-                            <constraint firstAttribute="trailing" secondItem="Wuh-lo-efE" secondAttribute="trailing" id="Uy3-BZ-yr6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8af-lG-iv5" secondAttribute="trailing" id="gfx-uJ-0Rn"/>
+                            <constraint firstItem="I5K-Uv-Zfb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hRb-2K-apl"/>
                             <constraint firstItem="8af-lG-iv5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lxf-PO-akq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -78,14 +77,14 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBar" destination="Wuh-lo-efE" id="kTy-MB-At7"/>
+                        <outlet property="pickerView" destination="I5K-Uv-Zfb" id="W9u-Rr-jSj"/>
                         <outlet property="tableView" destination="8af-lG-iv5" id="IC7-BY-Feh"/>
                         <segue destination="DGV-Vd-p4X" kind="show" identifier="cellSegue" id="w5H-WJ-CD9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="126.5625"/>
+            <point key="canvasLocation" x="1047.2" y="126.38680659670166"/>
         </scene>
         <!--Input View Controller-->
         <scene sceneID="3At-Hw-Jde">
@@ -127,7 +126,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="bb2-Ja-pNu"/>
                                 </constraints>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -137,19 +136,26 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="I7G-EJ-Rgl"/>
                                 </constraints>
                             </datePicker>
+                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BeV-2v-8xp">
+                                <rect key="frame" x="10" y="456" width="349" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="aWB-6x-cTq"/>
+                                </constraints>
+                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hw-In-OPg">
-                                <rect key="frame" x="10" y="554" width="355" height="30"/>
+                                <rect key="frame" x="10" y="513" width="355" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="35" id="TyB-VO-8RR"/>
                                 </constraints>
                                 <state key="normal" title="category"/>
                                 <connections>
-                                    <segue destination="wVC-ff-GO8" kind="show" id="5cb-ff-3w4"/>
+                                    <segue destination="wVC-ff-GO8" kind="show" identifier="" id="5cb-ff-3w4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="BeV-2v-8xp" firstAttribute="top" secondItem="a8A-Xq-d1y" secondAttribute="bottom" constant="10" id="0mA-hR-IWo"/>
                             <constraint firstItem="Qj8-aw-GsJ" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" constant="10" id="66j-4A-CsF"/>
                             <constraint firstItem="ws5-0v-maN" firstAttribute="top" secondItem="zyf-it-Q0U" secondAttribute="bottom" constant="10" id="6Ug-rv-Idk"/>
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="0Hw-In-OPg" secondAttribute="trailing" constant="10" id="A6W-54-Z33"/>
@@ -157,17 +163,19 @@
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="ws5-0v-maN" secondAttribute="trailing" constant="10" id="BMN-Q9-ZXc"/>
                             <constraint firstItem="a8A-Xq-d1y" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" id="KbE-Sh-But"/>
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="Qj8-aw-GsJ" secondAttribute="trailing" constant="10" id="LnA-ep-Qzm"/>
-                            <constraint firstItem="0Hw-In-OPg" firstAttribute="top" secondItem="a8A-Xq-d1y" secondAttribute="bottom" constant="10" id="MzL-pe-rGI"/>
                             <constraint firstItem="Qj8-aw-GsJ" firstAttribute="top" secondItem="t0Z-el-bOx" secondAttribute="top" constant="10" id="N5i-CS-E9T"/>
                             <constraint firstItem="zyf-it-Q0U" firstAttribute="top" secondItem="qSa-dG-pa3" secondAttribute="bottom" constant="10" id="RPT-pP-2Ov"/>
                             <constraint firstItem="qSa-dG-pa3" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" constant="10" id="S27-jH-Zjl"/>
+                            <constraint firstItem="BeV-2v-8xp" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" constant="10" id="Uvh-ou-xAh"/>
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="zyf-it-Q0U" secondAttribute="trailing" constant="10" id="Uw5-l7-DfA"/>
                             <constraint firstItem="a8A-Xq-d1y" firstAttribute="top" secondItem="ws5-0v-maN" secondAttribute="bottom" constant="10" id="eim-Kl-5VU"/>
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="a8A-Xq-d1y" secondAttribute="trailing" id="hZX-Nz-rm7"/>
+                            <constraint firstItem="0Hw-In-OPg" firstAttribute="top" secondItem="BeV-2v-8xp" secondAttribute="bottom" constant="10" id="jJE-Zy-zUz"/>
                             <constraint firstItem="0Hw-In-OPg" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" constant="10" id="nEt-Lg-31Y"/>
                             <constraint firstItem="t0Z-el-bOx" firstAttribute="trailing" secondItem="qSa-dG-pa3" secondAttribute="trailing" constant="10" id="uFG-Vp-Jzp"/>
                             <constraint firstItem="ws5-0v-maN" firstAttribute="leading" secondItem="t0Z-el-bOx" secondAttribute="leading" constant="10" id="vOh-D4-JUr"/>
                             <constraint firstItem="qSa-dG-pa3" firstAttribute="top" secondItem="Qj8-aw-GsJ" secondAttribute="bottom" id="x2t-MN-HQ4"/>
+                            <constraint firstItem="BeV-2v-8xp" firstAttribute="trailing" secondItem="t0Z-el-bOx" secondAttribute="trailing" constant="10" id="zfb-Rv-X3S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t0Z-el-bOx"/>
                     </view>
@@ -176,12 +184,13 @@
                     <connections>
                         <outlet property="contentsTextView" destination="ws5-0v-maN" id="cst-AX-sBV"/>
                         <outlet property="datePicker" destination="a8A-Xq-d1y" id="ruV-6G-imL"/>
+                        <outlet property="pickerView" destination="BeV-2v-8xp" id="xfx-gN-9kN"/>
                         <outlet property="titleTextField" destination="qSa-dG-pa3" id="hV8-dg-Kqn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enh-Pi-c5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1762.5" y="125.70422535211267"/>
+            <point key="canvasLocation" x="1762.4000000000001" y="125.4872563718141"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="5ld-yu-AAi">
@@ -254,6 +263,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="X4i-9K-zCy"/>
+        <segue reference="w5H-WJ-CD9"/>
     </inferredMetricsTieBreakers>
 </document>

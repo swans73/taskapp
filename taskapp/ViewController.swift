@@ -10,7 +10,11 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource
+//    UISearchBarDelegate
+{
+    
+    
     @IBOutlet weak var tableView: UITableView!
     //Realmインスタンスを取得する
     let realm = try! Realm()
@@ -46,27 +50,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.delegate = self
+//        searchBar.delegate = self
+        pickerView.dataSource = self
+        pickerView.delegate = self
     }
-    @IBOutlet weak var searchBar: UISearchBar!
-    //検索バーを押した時の処理
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        searchBar.showsCancelButton = true
-        if let kensaku = searchBar.text {
-            let jyutugo = NSPredicate(format: "category = %@", kensaku)
-            taskArray = try! Realm().objects(Task.self).filter(jyutugo)
-            tableView.reloadData()
-        } else {
-            tableView.reloadData()
-        }
-        
+//    @IBOutlet weak var searchBar: UISearchBar!
+//    //検索バーを押した時の処理
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.resignFirstResponder()
+//        searchBar.showsCancelButton = true
+//        if let kensaku = searchBar.text {
+//            let jyutugo = NSPredicate(format: "category = %@", kensaku)
+//            taskArray = try! Realm().objects(Task.self).filter(jyutugo)
+//            tableView.reloadData()
+//        } else {
+//            tableView.reloadData()
+//        }
+//
+//    }
+//    //検索をキャンセルした時の処理
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+//        tableView.reloadData()
+//    }
+    @IBOutlet weak var pickerView: UIPickerView!
+    var categoryList:[String] = ["リスト１"]
+    var list = [categoryList]
+    // MARK: UIPickerViewDataSourceプロトコルのメソッド
+    // ピッカーに表示する行数を返すように実装する
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return list.count
     }
-    //検索をキャンセルした時の処理
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-        tableView.reloadData()
+    // MARK: UIPickerViewDelegateプロトコルのメソッド
+    // UIPickerViewの列の数
+    func numberOfComponents(in picker: UIPickerView) -> Int {
+        return 1
     }
+    // ピッカーの最初の表示
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
+        return list[row]
+    }
+//    // UIPickerViewの行数、リストの数
+//    func pickerView(_ pickerView: UIPickerView,
+//                    numberOfRowsInComponent component: Int) -> Int {
+//        return dataList.count
+//    }
+//
+//    // UIPickerViewの最初の表示
+//    func pickerView(_ pickerView: UIPickerView,
+//                    titleForRow row: Int,
+//                    forComponent component: Int) -> String? {
+//
+//        return dataList[row]
+//    }
+    
+    
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
